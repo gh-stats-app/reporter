@@ -1,0 +1,30 @@
+name: Node.js Package
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - run: |
+          git config --global user.name 'gh-stats'
+          git config --global user.email 'gh-stats@users.noreply.github.com'
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '12.x'
+          scope: '@gh-stats'
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+
+      - run: npm version patch
+
+      - run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

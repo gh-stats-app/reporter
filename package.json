@@ -1,0 +1,19 @@
+{
+  "name": "@gh-stats/reporter",
+  "version": "1.0.0-beta.1",
+  "description": "gh-stats reporter package",
+  "main": "index.js",
+  "author": "Bartosz Gałek",
+  "repository": "git://github.com/bgalek/gh-stats.git",
+  "license": "ISC",
+  "scripts": {
+    "postversion": "git push --tags",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-jest": "^24.4.0",
+    "jest": "^27.0.6",
+    "nock": "^13.1.1"
+  }
+}
