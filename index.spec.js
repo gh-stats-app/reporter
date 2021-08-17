@@ -33,9 +33,8 @@ describe('reportAction()', () => {
         delete process.env['GITHUB_ACTION'];
 
         await reportAction();
-        return Promise.all(
-            expect(console.error).toHaveBeenCalledTimes(1),
-            expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required env variables'),
-        );
+        
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required env variables');
     });
 });
