@@ -3,13 +3,15 @@ const url = 'https://gh-stats.app/actions';
 
 module.exports = {
     reportAction: () => {
-        const repository = process.env['GITHUB_REPOSITORY'];
-        const action = process.env['GITHUB_ACTION'];
-        if ([repository, action].some(it => !it)) {
-            console.error('can\'t report action usage: missing required env variables');
-            return;
-        }
-        return new Promise(function (resolve, reject) {
+        return new Promise((resolve, reject) => {
+            const repository = process.env['GITHUB_REPOSITORY'];
+            const action = process.env['GITHUB_ACTION'];
+            
+            if ([repository, action].some(it => !it)) {
+                reject('can\'t report action usage: missing required env variables');
+                return;
+            }
+
             const request = https.request(url, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' }
@@ -26,4 +28,3 @@ module.exports = {
         }).catch(console.error);
     }
 };
-

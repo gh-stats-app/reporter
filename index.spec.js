@@ -1,13 +1,12 @@
 const nock = require('nock');
 const { reportAction } = require('./index');
 
-process.env['GITHUB_REPOSITORY'] = 'bgalek/test';
-process.env['GITHUB_ACTION'] = 'actions/checkout';
-
 console.error = jest.fn();
 
 beforeEach(() => {
     console.error.mockClear();
+    process.env['GITHUB_REPOSITORY'] = 'bgalek/test';
+    process.env['GITHUB_ACTION'] = 'actions/checkout';
 });
 
 describe('reportAction()', () => {
@@ -26,5 +25,17 @@ describe('reportAction()', () => {
             .reply(500);
         await reportAction();
         return expect(console.error).toHaveBeenCalledTimes(1);
+    });
+
+    it('should reject without required env variables', async () => {
+        // setup
+        delete process.env['GITHUB_REPOSITORY'];
+        delete process.env['GITHUB_ACTION'];
+
+        await reportAction();
+        return Promise.all(
+            expect(console.error).toHaveBeenCalledTimes(1),
+            expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required env variables'),
+        );
     });
 });
