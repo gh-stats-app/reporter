@@ -2,6 +2,15 @@ const https = require('https');
 const url = 'https://gh-stats.app/actions';
 
 module.exports = {
+    /**
+     * Reports usage of this GitHub Action.
+     * 
+     * Uses data provided by GitHub Actions runtime:
+     * - Repository name (from `GITHUB_REPOSITORY` environment variable)
+     * - Action name (from `GITHUB_ACTION` environment variable)
+     * 
+     * @returns {Promise} Promise for the completion of the action report.
+     */
     reportAction: () => {
         return new Promise((resolve, reject) => {
             const repository = process.env['GITHUB_REPOSITORY'];
