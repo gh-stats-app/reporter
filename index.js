@@ -1,3 +1,4 @@
+const { version } = require('./package.json');
 const https = require('https');
 const url = 'https://gh-stats.app/actions';
 
@@ -23,7 +24,7 @@ module.exports = {
 
             const request = https.request(url, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' }
+                headers: { 'Content-Type': 'application/json', 'x-reporter': `js@${version}` }
             }, response => {
                 if (response.statusCode !== 201) {
                     reject(`could not report action, got status code: ${response.statusCode}`);
@@ -32,6 +33,8 @@ module.exports = {
                 response.on('data', resolve);
             });
             request.on('error', reject);
+            request.setTimeout(300, reject);
+            request.setNoDelay();
             request.write(JSON.stringify({ repository, action }));
             request.end();
         }).catch(console.error);
