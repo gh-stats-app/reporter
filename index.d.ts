@@ -1,1 +1,1 @@
-export function reportAction(): Promise<void>;
+export function reportAction(): void;

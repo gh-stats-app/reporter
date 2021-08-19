@@ -10,10 +10,9 @@ module.exports = {
      * - Repository name (from `GITHUB_REPOSITORY` environment variable)
      * - Action name (from `GITHUB_ACTION` environment variable)
      *
-     * @returns {Promise<void>} Promise for the completion of the action report.
      */
     reportAction: () => {
-        return new Promise((resolve, reject) => {
+        new Promise((resolve, reject) => {
             const repository = process.env['GITHUB_REPOSITORY'];
             const action = process.env['GITHUB_ACTION'];
 

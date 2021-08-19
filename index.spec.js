@@ -16,7 +16,8 @@ describe('reportAction()', () => {
             .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout' }))
             .reply(201);
 
-        await reportAction();
+        reportAction();
+        await new Promise((r) => setTimeout(r, 100));
 
         expect(scope.isDone());
     });
@@ -26,7 +27,8 @@ describe('reportAction()', () => {
             .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout' }))
             .reply(500);
 
-        await reportAction();
+        reportAction();
+        await new Promise((r) => setTimeout(r, 100));
 
         expect(console.error).toHaveBeenCalledTimes(1);
     });
@@ -36,7 +38,8 @@ describe('reportAction()', () => {
         delete process.env['GITHUB_REPOSITORY'];
         delete process.env['GITHUB_ACTION'];
 
-        await reportAction();
+        reportAction();
+        await new Promise((r) => setTimeout(r, 100));
 
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required env variables');
