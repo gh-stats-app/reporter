@@ -7,7 +7,7 @@
   "repository": "git://github.com/bgalek/gh-stats.git",
   "license": "ISC",
   "scripts": {
-    "postversion": "git push --tags",
+    "postversion": "git push --follow-tags",
     "test": "jest"
   },
   "devDependencies": {
