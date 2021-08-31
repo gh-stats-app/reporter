@@ -50,8 +50,10 @@ function getActionName(path) {
     if (!path.includes('_actions')) return null;
     const actionPathParts = path.split('_actions', 2);
     if (actionPathParts.length !== 2) return null;
-    const actionParts = actionPathParts[1].split('/');
-    const actionVersion = actionParts.pop();
-    const actionName = actionParts.filter(it => it !== '').join('/');
-    return `${actionName}@${actionVersion}`;
+    const actionParts = actionPathParts[1].split('/').filter(it => it !== '');
+    if (actionParts.length < 3) return null;
+    const user = actionParts.shift();
+    const repository = actionParts.shift();
+    const actionTag = actionParts.shift();
+    return `${user}/${repository}@${actionTag}`;
 }
