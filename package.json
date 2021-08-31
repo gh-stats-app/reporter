@@ -1,6 +1,6 @@
 {
   "name": "@gh-stats/reporter",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "gh-stats reporter package",
   "main": "index.js",
   "author": "Bartosz Gałek",
