@@ -15,7 +15,7 @@ module.exports = {
         new Promise((resolve, reject) => {
             const repository = process.env['GITHUB_REPOSITORY'];
             const action = process.env['GITHUB_ACTION'];
-
+            console.log(process.env.GITHUB_ACTION_PATH);
             if ([repository, action].some(it => !it)) {
                 reject('can\'t report action usage: missing required env variables');
                 return;
