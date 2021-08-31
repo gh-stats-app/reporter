@@ -14,10 +14,16 @@ module.exports = {
     reportAction: () => {
         new Promise((resolve, reject) => {
             const repository = process.env['GITHUB_REPOSITORY'];
-            const action = process.env['GITHUB_ACTION'];
-            console.log(process.env.GITHUB_ACTION_PATH);
-            if ([repository, action].some(it => !it)) {
-                reject('can\'t report action usage: missing required env variables');
+
+            if (!repository) {
+                reject('can\'t report action usage: missing required GITHUB_REPOSITORY env variable');
+                return;
+            }
+
+            const action = getActionName();
+
+            if (!action) {
+                reject('can\'t report action usage: unknown action');
                 return;
             }
 
@@ -39,3 +45,13 @@ module.exports = {
         }).catch(console.error);
     }
 };
+
+function getActionName() {
+    if (!__dirname.includes('_actions')) return null;
+    const actionPathParts = __dirname.split('_actions', 2);
+    if (actionPathParts.length !== 2) return null;
+    const actionParts = actionPathParts[1].split('/');
+    const actionVersion = actionParts.pop();
+    const actionName = actionParts.filter(it => it === '').join('/');
+    return `${actionName}@${actionVersion}`;
+}

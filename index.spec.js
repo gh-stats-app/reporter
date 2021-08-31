@@ -36,12 +36,11 @@ describe('reportAction()', () => {
     it('should reject without required env variables', async () => {
         // setup
         delete process.env['GITHUB_REPOSITORY'];
-        delete process.env['GITHUB_ACTION'];
 
         reportAction();
         await new Promise((r) => setTimeout(r, 100));
 
         expect(console.error).toHaveBeenCalledTimes(1);
-        expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required env variables');
+        expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required GITHUB_REPOSITORY env variable');
     });
 });
