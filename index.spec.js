@@ -13,24 +13,25 @@ describe('reportAction()', () => {
 
     it('should report usage to server', async () => {
         const scope = nock('https://gh-stats.app')
-            .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout' }))
+            .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout@master' }))
             .reply(201);
 
-        reportAction();
+        reportAction('/home/github/actions-runner/_work/_actions/actions/checkout/master');
         await new Promise((r) => setTimeout(r, 100));
 
-        expect(scope.isDone());
+        expect(scope.isDone()).toBeTruthy();
     });
 
     it('should reject when server is responding other than 201', async () => {
-        nock('https://gh-stats.app')
-            .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout' }))
+        const scope = nock('https://gh-stats.app')
+            .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout@master' }))
             .reply(500);
 
-        reportAction();
+        reportAction('/home/github/actions-runner/_work/_actions/actions/checkout/master');
         await new Promise((r) => setTimeout(r, 100));
 
-        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(scope.isDone()).toBeTruthy();
+        expect(console.error).toHaveBeenCalledWith('could not report action, got status code: 500');
     });
 
     it('should reject without required env variables', async () => {

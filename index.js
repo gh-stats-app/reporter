@@ -11,7 +11,7 @@ module.exports = {
      * - Action name (from `GITHUB_ACTION` environment variable)
      *
      */
-    reportAction: () => {
+    reportAction: (path = __dirname) => {
         new Promise((resolve, reject) => {
             const repository = process.env['GITHUB_REPOSITORY'];
 
@@ -20,7 +20,7 @@ module.exports = {
                 return;
             }
 
-            const action = getActionName();
+            const action = getActionName(path);
 
             if (!action) {
                 reject('can\'t report action usage: unknown action');
@@ -46,12 +46,12 @@ module.exports = {
     }
 };
 
-function getActionName() {
-    if (!__dirname.includes('_actions')) return null;
-    const actionPathParts = __dirname.split('_actions', 2);
+function getActionName(path) {
+    if (!path.includes('_actions')) return null;
+    const actionPathParts = path.split('_actions', 2);
     if (actionPathParts.length !== 2) return null;
     const actionParts = actionPathParts[1].split('/');
     const actionVersion = actionParts.pop();
-    const actionName = actionParts.filter(it => it === '').join('/');
+    const actionName = actionParts.filter(it => it !== '').join('/');
     return `${actionName}@${actionVersion}`;
 }
