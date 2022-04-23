@@ -4,7 +4,7 @@
   "description": "gh-stats reporter package",
   "main": "index.js",
   "author": "Bartosz Gałek",
-  "repository": "git://github.com/bgalek/gh-stats.git",
+  "repository": "git://github.com/gh-stats-app/reporter.git",
   "license": "ISC",
   "scripts": {
     "postversion": "git push --follow-tags",
