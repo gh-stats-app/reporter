@@ -41,12 +41,12 @@ You can view your action stats at [https://gh-stats.app/actions/{user}/{action-r
 After reporting, add a badge to your `README.md` 
 
 ```markdown
-![example](https://gh-stats.app/badge?action=allegro-actions/verify-monitoring)
+![example](https://shields.gh-stats.app/badge?action=allegro-actions/verify-monitoring)
 ```
-![example](https://gh-stats.app/badge?action=allegro-actions/verify-monitoring)
+![example](https://shields.gh-stats.app/badge?action=allegro-actions/verify-monitoring)
 
 You can use any shields.io api query parameters:
 ```markdown
-![example](https://gh-stats.app/badge?action=allegro-actions/verify-monitoring&color=yellow&style=flat)
+![example](https://shields.gh-stats.app/badge?action=allegro-actions/verify-monitoring&color=yellow&style=flat)
 ```
-![example](https://gh-stats.app/badge?action=allegro-actions/verify-monitoring&color=yellow&style=social)
+![example](https://shields.gh-stats.app/badge?action=allegro-actions/verify-monitoring&color=yellow&style=social)
