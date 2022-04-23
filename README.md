@@ -28,13 +28,13 @@ Add `reportAction()` call to your action yml.
 bash <(curl -s https://gh-stats.app/actions/bash/v1)
 ```
 
-> you can always validate our script via SHA-512 sum that we are publishing at [https://gh-stats.app/actions/bash/v1.sha512](https://gh-stats.app/actions/bash/v1.sha512)
+> you can always validate our script via SHA-512 sum that we are publishing at [https://api.gh-stats.app/actions/bash/v1.sha512](https://api.gh-stats.app/actions/bash/v1.sha512)
 
 ## How does it work?
 
 This library simply reports usage of your workflow and stores it in database.
 
-You can view your action stats at [https://gh-stats.app/actions/{user}/{action-repository}](https://gh-stats.app/actions/{user}/{action-repository}).
+You can view your action stats at [https://api.gh-stats.app/actions/{user}/{action-repository}](https://api.gh-stats.app/actions/{user}/{action-repository}).
 
 ## Badge
 
