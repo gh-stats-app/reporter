@@ -6,7 +6,6 @@
   "repository": "git://github.com/gh-stats-app/reporter.git",
   "license": "ISC",
   "scripts": {
-    "postversion": "git push --follow-tags",
     "test": "jest"
   },
   "devDependencies": {
