@@ -12,7 +12,7 @@ beforeEach(() => {
 describe('reportAction()', () => {
 
     it('should report usage to server', async () => {
-        const scope = nock('https://gh-stats.app')
+        const scope = nock('https://api.gh-stats.app')
             .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout@master' }))
             .reply(201);
 
@@ -23,7 +23,7 @@ describe('reportAction()', () => {
     });
 
     it('should reject when server is responding other than 201', async () => {
-        const scope = nock('https://gh-stats.app')
+        const scope = nock('https://api.gh-stats.app')
             .post('/actions', JSON.stringify({ repository: 'bgalek/test', action: 'actions/checkout@master' }))
             .reply(500);
 

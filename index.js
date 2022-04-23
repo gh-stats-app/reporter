@@ -1,6 +1,6 @@
 const { version } = require('./package.json');
 const https = require('https');
-const url = 'https://gh-stats.app/actions';
+const url = 'https://api.gh-stats.app/actions';
 
 module.exports = {
     /**
