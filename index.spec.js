@@ -1,5 +1,9 @@
 const nock = require('nock');
+const { execFile } = require('node:child_process');
+const { promisify } = require('node:util');
 const { reportAction } = require('./index');
+
+const execFileAsync = promisify(execFile);
 
 console.error = jest.fn();
 
@@ -43,5 +47,31 @@ describe('reportAction()', () => {
 
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error).toHaveBeenCalledWith('can\'t report action usage: missing required GITHUB_REPOSITORY env variable');
+    });
+
+    it('should expose reportAction via CommonJS require', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [
+            '-e',
+            'const reporter = require("@gh-stats/reporter"); process.stdout.write(typeof reporter.reportAction);'
+        ], {
+            cwd: __dirname
+        });
+
+        expect(stdout).toBe('function');
+    });
+
+    it('should expose reportAction via ESM imports', async () => {
+        const { stdout } = await execFileAsync(process.execPath, [
+            '--input-type=module',
+            '-e',
+            'import reporter, { reportAction } from "@gh-stats/reporter"; process.stdout.write(JSON.stringify({ defaultType: typeof reporter.reportAction, namedType: typeof reportAction }));'
+        ], {
+            cwd: __dirname
+        });
+
+        expect(JSON.parse(stdout)).toEqual({
+            defaultType: 'function',
+            namedType: 'function'
+        });
     });
 });

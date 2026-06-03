@@ -2,6 +2,14 @@
   "name": "@gh-stats/reporter",
   "description": "gh-stats reporter package",
   "main": "index.js",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.mjs",
+      "require": "./index.js",
+      "default": "./index.js"
+    }
+  },
   "author": "Bartosz Gałek",
   "repository": "git://github.com/gh-stats-app/reporter.git",
   "license": "ISC",
@@ -9,9 +17,12 @@
     "test": "jest"
   },
   "devDependencies": {
-    "eslint": "^8.14.0",
-    "eslint-plugin-jest": "^26.1.5",
-    "jest": "^27.5.1",
-    "nock": "^13.2.4"
+    "eslint": "^9.28.0",
+    "eslint-plugin-jest": "^29.0.1",
+    "jest": "^30.0.0",
+    "nock": "^14.0.5"
+  },
+  "engines": {
+    "node": ">=24.0.0"
   }
 }
